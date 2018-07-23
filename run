@@ -13,5 +13,9 @@ LOCALDATA="/home/$USER/$ANKIDATA"
 mkdir -p "$LOCALDATA"
 
 # create and run disposable container
-docker run -it --rm -v "$LOCALDATA":"/root/$ANKIDATA" --tmpfs /tmp -e DISPLAY -e XAUTHORITY=$XAUTH -e QT_X11_NO_MITSHM=1 -v $XSOCK:$XSOCK -v $XAUTH:$XAUTH anki:2.0 $1
+docker run -it --rm \
+           -v "$LOCALDATA":"/root/$ANKIDATA" \
+           --tmpfs /tmp \
+           -e DISPLAY -e XAUTHORITY=$XAUTH -e QT_X11_NO_MITSHM=1 -v $XSOCK:$XSOCK -v $XAUTH:$XAUTH \
+           anki:latest $1
 
