@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+docker build -t anki:2.0.52 .
+docker tag anki:2.0.52 anki:2.0

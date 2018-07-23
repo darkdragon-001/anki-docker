@@ -1,0 +1,17 @@
+#!/usr/bin/env sh
+
+# X11 forwarding
+XSOCK=/tmp/.X11-unix
+XAUTH=/tmp/.docker.xauth
+touch $XAUTH
+xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f $XAUTH nmerge -
+
+# data directory
+ANKIDATA=.local/share/Anki2
+#LOCALDATA="$(pwd)/ankidata"
+LOCALDATA="/home/$USER/$ANKIDATA"
+mkdir -p "$LOCALDATA"
+
+# create and run disposable container
+docker run -it --rm -v "$LOCALDATA":"/root/$ANKIDATA" --tmpfs /tmp -e DISPLAY -e XAUTHORITY=$XAUTH -e QT_X11_NO_MITSHM=1 -v $XSOCK:$XSOCK -v $XAUTH:$XAUTH anki:2.0 $1
+
