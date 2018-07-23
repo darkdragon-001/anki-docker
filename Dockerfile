@@ -55,16 +55,17 @@ RUN buildDeps='build-essential curl libqt4-dev libqtwebkit-dev libx11-dev libxex
 
 # install Anki
 ARG ANKI_VERSION=2.0.52
-ARG ANKI_DOWNLOAD_URL=https://apps.ankiweb.net/downloads/current/anki-$ANKI_VERSION-source.tgz
-ARG ANKI_DOWNLOAD_SHA1=10a03473670c5c72ae8160fe4c997fbe8f713e75
+ARG ANKI_DOWNLOAD_URL=https://github.com/darkdragon-001/anki/archive/v$ANKI_VERSION.tar.gz
 RUN buildDeps='curl' \
     && apt-get update && apt-get install -y $buildDeps --no-install-recommends \
     && rm -rf /var/lib/apt/lists/* \
     && mkdir -p /usr/share/anki \
     && curl -sSL "$ANKI_DOWNLOAD_URL" -o anki.tar.gz \
-    && echo "$ANKI_DOWNLOAD_SHA1 anki.tar.gz" | sha1sum -c - \
     && tar -xzf anki.tar.gz -C /usr/share/anki --strip-components=1 \
     && rm anki.tar.gz \
+    && cd /usr/share/anki \
+    && ./tools/build_ui.sh \
+    && cd / \
     && apt-get purge -y --auto-remove $buildDeps
 
 ENV LC_CTYPE=C.UTF-8
