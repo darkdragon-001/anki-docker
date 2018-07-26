@@ -5,6 +5,9 @@ FROM ubuntu:18.04
 ARG ANKI_DOWNLOAD_URL=https://github.com/darkdragon-001/anki/archive/master.tar.gz
 RUN apt-get update && \
     \
+    # Pulseaudio is used to redirect the audio
+    apt-get install -y pulseaudio && \
+    \
     # Audio tools required by Anki
     apt-get install -y mpv lame && \
     \
