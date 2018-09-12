@@ -1,8 +1,8 @@
 FROM ubuntu:18.04
 
 # install Anki
-# NOTE using my mirror since official https://github.com/dae/anki does not tag versions
-ARG ANKI_DOWNLOAD_URL=https://github.com/darkdragon-001/anki/archive/master.tar.gz
+ARG ANKI_VERSION=2.1.4
+ARG ANKI_DOWNLOAD_URL=https://github.com/dae/anki/archive/${ANKI_VERSION}.tar.gz
 RUN apt-get update && \
     \
     # Audio tools required by Anki
@@ -15,7 +15,7 @@ RUN apt-get update && \
     # Install Anki
     # NOTE ca-certificates installed by python3-requests
     apt-get install -y curl make pyqt5-dev-tools && \
-    curl -sSL "$ANKI_DOWNLOAD_URL" -o anki.tar.gz && \
+    curl -sSL "${ANKI_DOWNLOAD_URL}" -o anki.tar.gz && \
     mkdir -p /usr/src/anki && \
     tar -xzf anki.tar.gz -C /usr/src/anki --strip-components=1 && \
     rm anki.tar.gz && \
