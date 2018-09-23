@@ -55,7 +55,7 @@ RUN buildDeps='build-essential curl libqt4-dev libqtwebkit-dev libx11-dev libxex
 
 # install Anki
 ARG ANKI_VERSION=2.0.52
-ARG ANKI_DOWNLOAD_URL=https://github.com/darkdragon-001/anki/archive/v$ANKI_VERSION.tar.gz
+ARG ANKI_DOWNLOAD_URL=https://github.com/darkdragon-001/anki/archive/$ANKI_VERSION.tar.gz
 RUN buildDeps='curl' \
     && apt-get update && apt-get install -y $buildDeps --no-install-recommends \
     && rm -rf /var/lib/apt/lists/* \
