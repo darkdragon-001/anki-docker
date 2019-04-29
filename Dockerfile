@@ -1,7 +1,7 @@
 FROM ubuntu:18.04
 
 # install Anki
-ARG ANKI_VERSION=2.1.6
+ARG ANKI_VERSION=2.1.12
 ARG ANKI_DOWNLOAD_URL=https://github.com/dae/anki/archive/${ANKI_VERSION}.tar.gz
 RUN apt-get update && \
     \
